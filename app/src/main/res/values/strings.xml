@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PoseIt</string>
+    <string name="button_poseIt">Pose It!</string>
+    <string name="action_settings">Settings</string>
+    <string name="textArea_prompt">Pose your question here...</string>
+
+</resources>
