@@ -50,15 +50,6 @@ public class PoseActivity extends Activity {
 
         final String questionStr = txtQuestion.getText().toString();
 
-//        try {
-//            Log.i(LOG_TAG, "sending...");
-//            Yorn apiServiceHandle = AppConstants.getApiServiceHandle();
-//            apiServiceHandle.yornEndpoint().newQuestionSimple(questionStr).execute();
-//            Log.i(LOG_TAG, "sent!");
-//        } catch (IOException ioe) {
-//            Log.e(LOG_TAG, "Exception during API call", ioe);
-//        }
-
         // Use of an anonymous class is done for sample code simplicity. {@code AsyncTasks} should be
         // static-inner or top-level classes to prevent memory leak issues.
         // @see http://goo.gl/fN1fuE @26:00 for a great explanation.
@@ -70,27 +61,13 @@ public class PoseActivity extends Activity {
                         Yorn apiServiceHandle = AppConstants.getApiServiceHandle();
 
                         try {
-                            Log.i(LOG_TAG, "sending...");
                             NewQuestionSimple nqs = apiServiceHandle.yornEndpoint().newQuestionSimple(questionStr);
                             Message msg = nqs.execute();
-
-                            //GetGreeting getGreetingCommand = apiServiceHandle.greetings().getGreeting(integers[0]);
-                            //HelloGreeting greeting = getGreetingCommand.execute();
-                            Log.i(LOG_TAG, "sent!");
                             return msg;
                         } catch (IOException e) {
                             Log.e(LOG_TAG, "Exception during API call", e);
                         }
                         return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Message yorn) {
-//                        if (greeting!=null) {
-//                            displayGreetings(greeting);
-//                        } else {
-//                            Log.e(LOG_TAG, "No greetings were returned by the API.");
-//                        }
                     }
                 };
 

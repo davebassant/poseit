@@ -6,9 +6,6 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.appspot.numeric_ion_678.yorn.Yorn;
 
-/**
- * Created by dave on 04/10/14.
- */
 public class AppConstants {
 
     /**
@@ -23,18 +20,9 @@ public class AppConstants {
 
     public static Yorn getApiServiceHandle() {
         // Use a builder to help formulate the API request.
-        Yorn.Builder yornBuilder = new Yorn.Builder(AppConstants.HTTP_TRANSPORT, AppConstants.JSON_FACTORY, null);
+        Yorn.Builder yornBuilder = new Yorn.Builder(AppConstants.HTTP_TRANSPORT,
+                AppConstants.JSON_FACTORY, null);
 
         return yornBuilder.build();
     }
-
-    /*
-    public static Helloworld getApiServiceHandle() {
-        // Use a builder to help formulate the API request.
-        Helloworld.Builder helloWorld = new Helloworld.Builder(AppConstants.HTTP_TRANSPORT,
-                AppConstants.JSON_FACTORY,null);
-
-        return helloWorld.build();
-    }
-    */
 }
