@@ -60,25 +60,38 @@ public class PoseActivity extends Activity {
     }
 
     public void onClickPoseIt(View view) {
+        if (!isSignedIn()) {
+            Toast.makeText(this, "You must sign in to pose questions!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         View rootView = view.getRootView();
         EditText txtQuestion = (EditText)rootView.findViewById(R.id.textView);
 
         final String questionStr = txtQuestion.getText().toString();
 
-        // Use of an anonymous class is done for sample code simplicity. {@code AsyncTasks} should be
-        // static-inner or top-level classes to prevent memory leak issues.
-        // @see http://goo.gl/fN1fuE @26:00 for a great explanation.
-        AsyncTask<String, Void, Message> setNewQuestion =
-                new AsyncTask<String, Void, Message> () {
+        AsyncTask<Void, Void, Void> authenticatedPose =
+                new AsyncTask<Void, Void, Void> () {
                     @Override
-                    protected Message doInBackground(String... strings) {
-                        // Retrieve service handle.
-                        Yorn apiServiceHandle = AppConstants.getApiServiceHandle();
+                    protected Void doInBackground(Void... unused) {
+                        if (!isSignedIn()) {
+                            return null;
+                        };
+
+                        if (!AppConstants.checkGooglePlayServicesAvailable(PoseActivity.this)) {
+                            return null;
+                        }
+
+                        // Create a Google credential since this is an authenticated request to the API.
+                        GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
+                                PoseActivity.this, AppConstants.AUDIENCE);
+                        credential.setSelectedAccountName(mEmailAccount);
+
+                        // Retrieve service handle using credential since this is an authenticated call.
+                        Yorn apiServiceHandle = AppConstants.getApiServiceHandle(credential);
 
                         try {
-                            NewQuestionSimple nqs = apiServiceHandle.yornEndpoint().newQuestionSimple(questionStr);
-                            Message msg = nqs.execute();
-                            return msg;
+                            apiServiceHandle.yornEndpoint().newQuestion("AndroidAuthd", questionStr, mEmailAccount).execute();
                         } catch (IOException e) {
                             Log.e(LOG_TAG, "Exception during API call", e);
                         }
@@ -86,7 +99,7 @@ public class PoseActivity extends Activity {
                     }
                 };
 
-        setNewQuestion.execute();
+        authenticatedPose.execute((Void)null);
     }
 
     public void performAuthCheck(String emailAccount) {
@@ -240,6 +253,7 @@ public class PoseActivity extends Activity {
                 mEmailAccount = emailAddressTV.getText().toString();
             } else {
                 // Authorization check unsuccessful, reset TextView to empty.
+                mEmailAccount = "";
                 emailAddressTV.setText("");
             }
             mAuthTask = null;

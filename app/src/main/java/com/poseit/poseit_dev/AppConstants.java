@@ -10,9 +10,12 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.appspot.numeric_ion_678.yorn.Yorn;
+
+import javax.annotation.Nullable;
 
 public class AppConstants {
 
@@ -30,10 +33,10 @@ public class AppConstants {
 
     public static final String AUDIENCE = "server:client_id:" + WEB_CLIENT_ID;
 
-    public static Yorn getApiServiceHandle() {
+    public static Yorn getApiServiceHandle(@Nullable GoogleAccountCredential credential) {
         // Use a builder to help formulate the API request.
         Yorn.Builder yornBuilder = new Yorn.Builder(AppConstants.HTTP_TRANSPORT,
-                AppConstants.JSON_FACTORY, null);
+                AppConstants.JSON_FACTORY, credential);
 
         return yornBuilder.build();
     }
