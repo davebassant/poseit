@@ -1,0 +1,50 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+        <TextView
+            android:id="@+id/email_address_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/textview_userid" />
+
+        <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_in_button"
+            android:text="@string/button_signIn"
+            android:onClick="onClickSignIn"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dip"
+        android:background="#000000"/>
+
+    <fragment
+        android:id="@+id/poseFrag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        class="com.poseit.poseit_dev.PoseFragment"
+        tools:layout="@layout/fragment_pose" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dip"
+        android:background="#000000"/>
+
+    <fragment
+        android:id="@+id/naviFrag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        class="com.poseit.poseit_dev.NaviFragment"
+        tools:layout="@layout/fragment_navi" />
+
+</LinearLayout>
