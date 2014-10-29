@@ -2,9 +2,10 @@ package com.poseit.poseit_dev;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appspot.numeric_ion_678.yorn.Yorn;
-import com.appspot.numeric_ion_678.yorn.Yorn.YornEndpoint.NewQuestionSimple;
-import com.appspot.numeric_ion_678.yorn.model.Message;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.AccountPicker;
@@ -25,9 +24,11 @@ import com.google.common.base.Strings;
 
 import java.io.IOException;
 
-public class PoseActivity extends Activity {
 
-    private static final String LOG_TAG = "PoseActivity";
+public class LaunchActivity extends ActionBarActivity implements
+        PoseFragment.OnPoseFragmentInteractionListener, NaviFragment.OnNaviFragmentInteractionListener {
+
+    private static final String LOG_TAG = "LaunchActivity";
 
     private static final int ACTIVITY_RESULT_FROM_ACCOUNT_SELECTION = 2222;
 
@@ -37,13 +38,13 @@ public class PoseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pose);
+        setContentView(R.layout.activity_launch);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.pose, menu);
+        getMenuInflater().inflate(R.menu.launch, menu);
         return true;
     }
 
@@ -59,9 +60,19 @@ public class PoseActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPoseFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onNaviFragmentInteraction(String id) {
+
+    }
+
     public void onClickPoseIt(View view) {
         if (!isSignedIn()) {
-            Toast.makeText(this, "You must sign in to pose questions!", Toast.LENGTH_LONG).show();
+            Toast.makeText(LaunchActivity.this, "You must sign in to pose questions!", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -78,13 +89,13 @@ public class PoseActivity extends Activity {
                             return null;
                         };
 
-                        if (!AppConstants.checkGooglePlayServicesAvailable(PoseActivity.this)) {
+                        if (!AppConstants.checkGooglePlayServicesAvailable(LaunchActivity.this)) {
                             return null;
                         }
 
                         // Create a Google credential since this is an authenticated request to the API.
                         GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-                                PoseActivity.this, AppConstants.AUDIENCE);
+                                LaunchActivity.this, AppConstants.AUDIENCE);
                         credential.setSelectedAccountName(mEmailAccount);
 
                         // Retrieve service handle using credential since this is an authenticated call.
@@ -100,6 +111,14 @@ public class PoseActivity extends Activity {
                 };
 
         authenticatedPose.execute((Void)null);
+    }
+
+    private boolean isSignedIn() {
+        if (!Strings.isNullOrEmpty(mEmailAccount)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void performAuthCheck(String emailAccount) {
@@ -177,20 +196,12 @@ public class PoseActivity extends Activity {
         }
     }
 
-    private boolean isSignedIn() {
-        if (!Strings.isNullOrEmpty(mEmailAccount)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     class AuthorizationCheckTask extends AsyncTask<String, Integer, Boolean> {
         @Override
         protected Boolean doInBackground(String... emailAccounts) {
             Log.i(LOG_TAG, "Background task started.");
 
-            if (!AppConstants.checkGooglePlayServicesAvailable(PoseActivity.this)) {
+            if (!AppConstants.checkGooglePlayServicesAvailable(LaunchActivity.this)) {
                 return false;
             }
 
@@ -211,7 +222,7 @@ public class PoseActivity extends Activity {
                 // If the application has the appropriate access then a token will be retrieved, otherwise
                 // an error will be thrown.
                 GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-                        PoseActivity.this, AppConstants.AUDIENCE);
+                        LaunchActivity.this, AppConstants.AUDIENCE);
                 credential.setSelectedAccountName(emailAccount);
 
                 String accessToken = credential.getToken();
@@ -237,7 +248,7 @@ public class PoseActivity extends Activity {
         protected void onProgressUpdate(Integer... stringIds) {
             // Toast only the most recent.
             Integer stringId = stringIds[0];
-            Toast.makeText(PoseActivity.this, stringId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LaunchActivity.this, stringId, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -247,7 +258,7 @@ public class PoseActivity extends Activity {
 
         @Override
         protected void onPostExecute(Boolean success) {
-            TextView emailAddressTV = (TextView) PoseActivity.this.findViewById(R.id.email_address_tv);
+            TextView emailAddressTV = (TextView) LaunchActivity.this.findViewById(R.id.email_address_tv);
             if (success) {
                 // Authorization check successful, set internal variable.
                 mEmailAccount = emailAddressTV.getText().toString();
