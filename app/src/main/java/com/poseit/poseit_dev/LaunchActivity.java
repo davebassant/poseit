@@ -28,7 +28,7 @@ import java.io.IOException;
 public class LaunchActivity extends ActionBarActivity implements
         PoseFragment.OnPoseFragmentInteractionListener, NaviFragment.OnNaviFragmentInteractionListener {
 
-    private static final String LOG_TAG = "PoseActivity";
+    private static final String LOG_TAG = "LaunchActivity";
 
     private static final int ACTIVITY_RESULT_FROM_ACCOUNT_SELECTION = 2222;
 
