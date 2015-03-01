@@ -66,8 +66,9 @@ public class LaunchActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void onNaviFragmentInteraction(String id) {
-
+    public void onNaviFragmentInteraction(Class activityToLaunch) {
+        Intent intent = new Intent(this, activityToLaunch);
+        startActivity(intent);
     }
 
     public void onClickPoseIt(View view) {

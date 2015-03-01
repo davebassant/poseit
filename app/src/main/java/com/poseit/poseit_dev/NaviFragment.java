@@ -11,8 +11,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
-import android.widget.TextView;
-
 
 import com.poseit.poseit_dev.dummy.DummyContent;
 
@@ -54,9 +52,8 @@ public class NaviFragment extends Fragment implements AbsListView.OnItemClickLis
         super.onCreate(savedInstanceState);
         Log.i(TAG, getClass().getSimpleName() + ":entered onCreate()");
 
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new ArrayAdapter<Launch_Navi_Items.Launch_Navi_Item>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, Launch_Navi_Items.ITEMS);
     }
 
     @Override
@@ -101,7 +98,7 @@ public class NaviFragment extends Fragment implements AbsListView.OnItemClickLis
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onNaviFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onNaviFragmentInteraction(Launch_Navi_Items.ITEMS.get(position).activity);
         }
     }
 
@@ -117,7 +114,7 @@ public class NaviFragment extends Fragment implements AbsListView.OnItemClickLis
     */
     public interface OnNaviFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onNaviFragmentInteraction(String id);
+        public void onNaviFragmentInteraction(Class activityToLaunch);
     }
 
 }

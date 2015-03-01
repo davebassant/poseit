@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class VotingActivity extends ActionBarActivity {
+public class VotingActivity extends ActionBarActivity implements PoseSelectionFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +34,9 @@ public class VotingActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onFragmentInteraction(String id) {
+
     }
 }
