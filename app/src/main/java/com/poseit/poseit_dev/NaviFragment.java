@@ -42,8 +42,6 @@ public class NaviFragment extends Fragment implements AbsListView.OnItemClickLis
      */
     private ListAdapter mAdapter;
 
-    private Activity mHostActivity;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -83,7 +81,6 @@ public class NaviFragment extends Fragment implements AbsListView.OnItemClickLis
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.i(TAG, getClass().getSimpleName() + ":entered onAttach(Activity)");
-        mHostActivity = activity;
         try {
             mListener = (OnNaviFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

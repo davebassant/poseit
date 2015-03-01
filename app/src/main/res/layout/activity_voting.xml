@@ -1,0 +1,23 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <fragment
+        android:id="@+id/poseVotingFrag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        class="com.poseit.poseit_dev.PoseVotingFragment"
+        tools:layout="@layout/fragment_pose_response" />
+
+    <fragment
+        android:id="@+id/poseSelectionFrag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        class="com.poseit.poseit_dev.PoseSelectionFragment"
+        tools:layout="@layout/fragment_poseselection" />
+
+</LinearLayout>

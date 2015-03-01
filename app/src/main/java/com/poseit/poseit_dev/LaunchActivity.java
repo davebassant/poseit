@@ -102,7 +102,7 @@ public class LaunchActivity extends ActionBarActivity implements
                         Yorn apiServiceHandle = AppConstants.getApiServiceHandle(credential);
 
                         try {
-                            apiServiceHandle.yornEndpoint().newQuestion("AndroidAuthd", questionStr, mEmailAccount).execute();
+                            apiServiceHandle.yornEndpoint().newQuestion("AndroidAuthd", questionStr).execute();
                         } catch (IOException e) {
                             Log.e(LOG_TAG, "Exception during API call", e);
                         }

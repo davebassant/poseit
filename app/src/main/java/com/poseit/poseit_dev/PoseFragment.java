@@ -33,10 +33,6 @@ public class PoseFragment extends Fragment {
 
     private OnPoseFragmentInteractionListener mListener;
 
-//    private String mEmailAccount = "";
-//
-//    private Activity mHostActivity;
-
     public PoseFragment() {
         // Required empty public constructor
     }
@@ -60,7 +56,6 @@ public class PoseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.i(TAG, getClass().getSimpleName() + ":entered onAttach(Activity)");
-//        mHostActivity = activity;
         try {
             mListener = (OnPoseFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -68,12 +63,6 @@ public class PoseFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -89,63 +78,4 @@ public class PoseFragment extends Fragment {
         // TODO: Update argument type and name
         public void onPoseFragmentInteraction(Uri uri);
     }
-
-//    public void setEmailAccount(String emailAccount) {
-//        if (emailAccount == null) {
-//            mEmailAccount = "";
-//        } else {
-//            mEmailAccount = emailAccount;
-//        }
-//    }
-
-//    public void onClickPoseIt(View view) {
-//        if (!isSignedIn()) {
-//            Toast.makeText(mHostActivity, "You must sign in to pose questions!", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        View rootView = view.getRootView();
-//        EditText txtQuestion = (EditText)rootView.findViewById(R.id.textView);
-//
-//        final String questionStr = txtQuestion.getText().toString();
-//
-//        AsyncTask<Void, Void, Void> authenticatedPose =
-//                new AsyncTask<Void, Void, Void> () {
-//                    @Override
-//                    protected Void doInBackground(Void... unused) {
-//                        if (!isSignedIn()) {
-//                            return null;
-//                        };
-//
-//                        if (!AppConstants.checkGooglePlayServicesAvailable(mHostActivity)) {
-//                            return null;
-//                        }
-//
-//                        // Create a Google credential since this is an authenticated request to the API.
-//                        GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-//                                mHostActivity, AppConstants.AUDIENCE);
-//                        credential.setSelectedAccountName(mEmailAccount);
-//
-//                        // Retrieve service handle using credential since this is an authenticated call.
-//                        Yorn apiServiceHandle = AppConstants.getApiServiceHandle(credential);
-//
-//                        try {
-//                            apiServiceHandle.yornEndpoint().newQuestion("AndroidAuthd", questionStr, mEmailAccount).execute();
-//                        } catch (IOException e) {
-//                            Log.e(TAG, "Exception during API call", e);
-//                        }
-//                        return null;
-//                    }
-//                };
-//
-//        authenticatedPose.execute((Void)null);
-//    }
-//
-//    private boolean isSignedIn() {
-//        if (!Strings.isNullOrEmpty(mEmailAccount)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 }
